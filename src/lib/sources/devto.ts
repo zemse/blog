@@ -2,6 +2,7 @@ import type { BlogPost } from "./types";
 import { config } from "$lib/config";
 
 interface DevtoArticle {
+  id: number;
   title: string;
   description: string;
   url: string;
@@ -10,6 +11,22 @@ interface DevtoArticle {
   cover_image: string | null;
   positive_reactions_count: number;
   comments_count: number;
+}
+
+interface DevtoArticleDetail {
+  body_html: string;
+}
+
+async function extractFirstImage(articleId: number): Promise<string | undefined> {
+  try {
+    const res = await fetch(`https://dev.to/api/articles/${articleId}`);
+    if (!res.ok) return undefined;
+    const detail: DevtoArticleDetail = await res.json();
+    const match = detail.body_html.match(/<img[^>]+src="([^"]+)"/);
+    return match?.[1];
+  } catch {
+    return undefined;
+  }
 }
 
 export async function fetchDevtoPosts(): Promise<BlogPost[]> {
@@ -24,7 +41,7 @@ export async function fetchDevtoPosts(): Promise<BlogPost[]> {
 
   const articles: DevtoArticle[] = await res.json();
 
-  return articles.map((a) => ({
+  const posts: BlogPost[] = articles.map((a) => ({
     title: a.title,
     description: a.description,
     url: a.url,
@@ -35,4 +52,22 @@ export async function fetchDevtoPosts(): Promise<BlogPost[]> {
     reactionsCount: a.positive_reactions_count,
     commentsCount: a.comments_count,
   }));
+
+  const noCover = articles
+    .map((a, i) => ({ id: a.id, index: i }))
+    .filter((_, i) => !posts[i].coverImage);
+
+  if (noCover.length > 0) {
+    const images = await Promise.allSettled(
+      noCover.map((a) => extractFirstImage(a.id)),
+    );
+    noCover.forEach(({ index }, i) => {
+      const result = images[i];
+      if (result.status === "fulfilled" && result.value) {
+        posts[index].coverImage = result.value;
+      }
+    });
+  }
+
+  return posts;
 }
