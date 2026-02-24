@@ -1,4 +1,5 @@
 import { XMLParser } from "fast-xml-parser";
+import { getArticleInfo } from "medium-info-api/dist/functionscall/callFunction.js";
 import type { BlogPost } from "./types";
 import { config } from "$lib/config";
 
@@ -19,7 +20,7 @@ export async function fetchMediumPosts(): Promise<BlogPost[]> {
 
   const posts = Array.isArray(items) ? items : [items];
 
-  return posts.map((item: Record<string, unknown>) => {
+  const basePosts: BlogPost[] = posts.map((item: Record<string, unknown>) => {
     const categories = item["category"];
     const tags: string[] = Array.isArray(categories)
       ? categories.map(String)
@@ -43,5 +44,21 @@ export async function fetchMediumPosts(): Promise<BlogPost[]> {
       platform: "medium" as const,
       coverImage: imgMatch?.[1],
     };
+  });
+
+  const statsResults = await Promise.allSettled(
+    basePosts.map((p) => getArticleInfo(p.url)),
+  );
+
+  return basePosts.map((post, i) => {
+    const result = statsResults[i];
+    if (result.status === "fulfilled") {
+      const info = result.value;
+      const claps = Number(info.clapCount);
+      const comments = Number(info.commentsCount);
+      if (!isNaN(claps)) post.reactionsCount = claps;
+      if (!isNaN(comments)) post.commentsCount = comments;
+    }
+    return post;
   });
 }

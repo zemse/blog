@@ -8,6 +8,8 @@ interface DevtoArticle {
   published_at: string;
   tag_list: string[];
   cover_image: string | null;
+  positive_reactions_count: number;
+  comments_count: number;
 }
 
 export async function fetchDevtoPosts(): Promise<BlogPost[]> {
@@ -30,5 +32,7 @@ export async function fetchDevtoPosts(): Promise<BlogPost[]> {
     tags: a.tag_list,
     platform: "devto" as const,
     coverImage: a.cover_image ?? undefined,
+    reactionsCount: a.positive_reactions_count,
+    commentsCount: a.comments_count,
   }));
 }

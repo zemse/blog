@@ -34,6 +34,22 @@
 				{/each}
 			</div>
 		{/if}
+		{#if post.reactionsCount != null || post.commentsCount != null}
+			<div class="stats">
+				{#if post.reactionsCount != null}
+					<span class="stat">
+						<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+						{post.reactionsCount}
+					</span>
+				{/if}
+				{#if post.commentsCount != null}
+					<span class="stat">
+						<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+						{post.commentsCount}
+					</span>
+				{/if}
+			</div>
+		{/if}
 		<a href={post.url} target="_blank" rel="noopener noreferrer" class="read-link" class:devto={post.platform === 'devto'} class:medium={post.platform === 'medium'}>
 			Read on {platformConfig.label}
 			<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
@@ -117,6 +133,21 @@
 		background: var(--tag-bg);
 		padding: 0.15rem 0.5rem;
 		border-radius: 4px;
+	}
+
+	.stats {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		font-size: 0.85rem;
+		color: var(--text-muted);
+		margin-bottom: 1rem;
+	}
+
+	.stat {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.3rem;
 	}
 
 	.read-link {

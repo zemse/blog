@@ -6,4 +6,6 @@ export interface BlogPost {
   tags: string[];
   platform: "devto" | "medium";
   coverImage?: string;
+  reactionsCount?: number;
+  commentsCount?: number;
 }
