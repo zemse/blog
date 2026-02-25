@@ -15,9 +15,6 @@
 </script>
 
 <article class="card">
-  {#if post.coverImage}
-    <img src={post.coverImage} alt="" class="cover" loading="lazy" />
-  {/if}
   <div class="body">
     <div class="meta">
       <time datetime={post.publishedAt}>{formattedDate}</time>
@@ -114,10 +111,14 @@
       >
     </a>
   </div>
+  {#if post.coverImage}
+    <img src={post.coverImage} alt="" class="cover" loading="lazy" />
+  {/if}
 </article>
 
 <style>
   .card {
+    display: flex;
     background: var(--card-bg);
     border: 1px solid var(--border);
     border-radius: 12px;
@@ -129,14 +130,23 @@
     box-shadow: 0 4px 20px var(--shadow);
   }
 
-  .cover {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
+  .body {
+    flex: 1;
+    min-width: 0;
+    padding: 1.25rem;
   }
 
-  .body {
-    padding: 1.25rem;
+  .cover {
+    width: 180px;
+    flex-shrink: 0;
+    object-fit: cover;
+    align-self: stretch;
+  }
+
+  @media (max-width: 500px) {
+    .cover {
+      width: 120px;
+    }
   }
 
   .meta {
