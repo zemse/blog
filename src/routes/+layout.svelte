@@ -6,8 +6,8 @@
 </script>
 
 <svelte:head>
-	<title>zemse's blog</title>
-	<meta name="description" content="Blog posts by zemse from Dev.to and Medium" />
+	<title>zemse's writing across the web</title>
+	<meta name="description" content="zemse's writing across the web" />
 </svelte:head>
 
 <Header />

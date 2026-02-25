@@ -1,6 +1,5 @@
 <header>
-	<a href="/" class="logo">zemse's blog</a>
-	<p class="tagline">Posts from across the web</p>
+	<a href="/" class="logo">zemse's writing across the web</a>
 </header>
 
 <style>
@@ -16,9 +15,4 @@
 		text-decoration: none;
 	}
 
-	.tagline {
-		color: var(--text-muted);
-		margin-top: 0.25rem;
-		font-size: 0.95rem;
-	}
 </style>
