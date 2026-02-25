@@ -4,7 +4,7 @@ export interface BlogPost {
   url: string;
   publishedAt: string;
   tags: string[];
-  platform: "devto" | "medium";
+  platform: "devto" | "medium" | "ethmagicians" | "ethresearch";
   coverImage?: string;
   reactionsCount?: number;
   commentsCount?: number;

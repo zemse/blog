@@ -8,6 +8,8 @@
   --shadow: rgba(0, 0, 0, 0.08);
   --devto-color: #0a0a0a;
   --medium-color: #00ab6c;
+  --ethmagicians-color: #1c1c38;
+  --ethresearch-color: #223344;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -21,6 +23,8 @@
     --shadow: rgba(0, 0, 0, 0.3);
     --devto-color: #e5e5e5;
     --medium-color: #00d47e;
+    --ethmagicians-color: #a8a8d0;
+    --ethresearch-color: #88aacc;
   }
 }
 

@@ -15,5 +15,17 @@ export const config = {
       colorLight: "#00AB6C",
       colorDark: "#00D47E",
     },
+    ethmagicians: {
+      label: "Eth Magicians",
+      color: "#1c1c38",
+      colorLight: "#1c1c38",
+      colorDark: "#a8a8d0",
+    },
+    ethresearch: {
+      label: "ethresear.ch",
+      color: "#223344",
+      colorLight: "#223344",
+      colorDark: "#88aacc",
+    },
   },
 } as const;
