@@ -28,23 +28,6 @@
   --ethresearch-color: #3d5570;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #0f0f0f;
-    --card-bg: #1a1a1a;
-    --text: #e5e5e5;
-    --text-muted: #9ca3af;
-    --border: #2a2a2a;
-    --tag-bg: #252525;
-    --shadow: rgba(0, 0, 0, 0.3);
-    --devto-color: #383838;
-    --medium-color: #00ab6c;
-    --substack-color: #ff6719;
-    --ethmagicians-color: #3d3d6e;
-    --ethresearch-color: #3d5570;
-  }
-}
-
 *,
 *::before,
 *::after {

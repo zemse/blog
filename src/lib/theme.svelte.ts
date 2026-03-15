@@ -1,38 +1,29 @@
-type Mode = "system" | "light" | "dark";
+type Theme = "light" | "dark";
 
-let mode = $state<Mode>("system");
+let current = $state<Theme>("light");
 
-function applyAttribute(m: Mode) {
-  if (m === "system") {
-    document.documentElement.removeAttribute("data-theme");
-  } else {
-    document.documentElement.setAttribute("data-theme", m);
-  }
+function systemTheme(): Theme {
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+}
+
+function apply(t: Theme) {
+  document.documentElement.setAttribute("data-theme", t);
 }
 
 export function initialize() {
-  const stored = localStorage.getItem("theme") as Mode | null;
-  if (stored === "light" || stored === "dark") {
-    mode = stored;
-  }
+  const stored = localStorage.getItem("theme") as Theme | null;
+  current = stored === "light" || stored === "dark" ? stored : systemTheme();
+  apply(current);
 }
 
-export function setMode(m: Mode) {
-  mode = m;
-  if (m === "system") {
-    localStorage.removeItem("theme");
-  } else {
-    localStorage.setItem("theme", m);
-  }
-  applyAttribute(m);
+export function toggle() {
+  current = current === "dark" ? "light" : "dark";
+  localStorage.setItem("theme", current);
+  apply(current);
 }
 
-export function cycle() {
-  const order: Mode[] = ["system", "light", "dark"];
-  const next = order[(order.indexOf(mode) + 1) % order.length];
-  setMode(next);
-}
-
-export function getMode(): Mode {
-  return mode;
+export function getTheme(): Theme {
+  return current;
 }
