@@ -22,11 +22,11 @@
     --border: #2a2a2a;
     --tag-bg: #252525;
     --shadow: rgba(0, 0, 0, 0.3);
-    --devto-color: #e5e5e5;
-    --medium-color: #00d47e;
-    --substack-color: #ff8c4c;
-    --ethmagicians-color: #a8a8d0;
-    --ethresearch-color: #88aacc;
+    --devto-color: #383838;
+    --medium-color: #00ab6c;
+    --substack-color: #ff6719;
+    --ethmagicians-color: #3d3d6e;
+    --ethresearch-color: #3d5570;
   }
 }
 
