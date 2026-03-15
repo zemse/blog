@@ -15,6 +15,12 @@ export const config = {
       colorLight: "#00AB6C",
       colorDark: "#00D47E",
     },
+    substack: {
+      label: "Substack",
+      color: "#FF6719",
+      colorLight: "#FF6719",
+      colorDark: "#FF8C4C",
+    },
     ethmagicians: {
       label: "Eth Magicians",
       color: "#1c1c38",

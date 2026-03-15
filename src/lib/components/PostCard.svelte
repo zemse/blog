@@ -22,6 +22,7 @@
         class="badge"
         class:devto={post.platform === "devto"}
         class:medium={post.platform === "medium"}
+        class:substack={post.platform === "substack"}
         class:ethmagicians={post.platform === "ethmagicians"}
         class:ethresearch={post.platform === "ethresearch"}
       >
@@ -86,6 +87,7 @@
       class="read-link"
       class:devto={post.platform === "devto"}
       class:medium={post.platform === "medium"}
+      class:substack={post.platform === "substack"}
       class:ethmagicians={post.platform === "ethmagicians"}
       class:ethresearch={post.platform === "ethresearch"}
     >
@@ -174,6 +176,10 @@
     background: var(--medium-color);
   }
 
+  .badge.substack {
+    background: var(--substack-color);
+  }
+
   .badge.ethmagicians {
     background: var(--ethmagicians-color);
   }
@@ -250,6 +256,10 @@
 
   .read-link.medium {
     background: var(--medium-color);
+  }
+
+  .read-link.substack {
+    background: var(--substack-color);
   }
 
   .read-link.ethmagicians {
