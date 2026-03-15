@@ -12,13 +12,7 @@ export const load: PageServerLoad = async ({ url, setHeaders }) => {
 
   const page = Math.max(1, Number(url.searchParams.get("page")) || 1);
 
-  const [
-    devtoPosts,
-    mediumPosts,
-    substackPosts,
-    ethMagiciansPosts,
-    ethResearchPosts,
-  ] = await Promise.all([
+  const results = await Promise.allSettled([
     fetchDevtoPosts(),
     fetchMediumPosts(),
     fetchSubstackPosts(),
@@ -26,16 +20,12 @@ export const load: PageServerLoad = async ({ url, setHeaders }) => {
     fetchDiscoursePosts("https://ethresear.ch", "ethresearch"),
   ]);
 
-  const allPosts = [
-    ...devtoPosts,
-    ...mediumPosts,
-    ...substackPosts,
-    ...ethMagiciansPosts,
-    ...ethResearchPosts,
-  ].sort(
-    (a, b) =>
-      new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
-  );
+  const allPosts = results
+    .flatMap((r) => (r.status === "fulfilled" ? r.value : []))
+    .sort(
+      (a, b) =>
+        new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
+    );
 
   const totalPages = Math.max(
     1,
